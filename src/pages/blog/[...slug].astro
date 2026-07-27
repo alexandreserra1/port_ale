@@ -1,0 +1,29 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro"
+import { getCollection, render } from "astro:content"
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog")
+  return posts.map(p => ({
+    params: { slug: p.slug },
+    props: { post: p },
+  }))
+}
+
+const { post } = Astro.props
+const base = import.meta.env.BASE_URL
+const { title, description, date, tags } = post.data
+const { Content } = await render(post)
+---
+
+<BlogLayout title={title} description={description}>
+  <article class="container blog-post">
+    <a href={`${base}blog`} class="back-link">← Todas as notas</a>
+    <header class="post-header"><p class="eyebrow">Notas de estudo</p><h1>{title}</h1><p class="description">{description}</p><div class="post-meta"><time>{new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "long", year: "numeric" }).format(date)}</time><div class="tags">{tags?.map(t => <span class="tag">{t}</span>)}</div></div></header>
+    <div class="content"><Content /></div>
+  </article>
+</BlogLayout>
+
+<style>
+  .blog-post { max-width: 800px; padding-bottom: 6rem; padding-top: 3rem; }.back-link { color: var(--moss); font-size: .82rem; font-weight: 700; }.back-link:hover { color: var(--clay-deep); }.post-header { border-bottom: 1px solid var(--line); padding: 3rem 0 2.4rem; }.post-header h1 { margin: 1rem 0; }.description { color: var(--ink-soft); font-size: 1.15rem; line-height: 1.65; max-width: 42rem; }.post-meta { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin-top: 1.7rem; }.post-meta time { color: var(--muted); font-family: "DM Mono", monospace; font-size: .7rem; text-transform: uppercase; }.tags { display: flex; flex-wrap: wrap; gap: .4rem; }.content { color: var(--ink-soft); font-size: 1.08rem; line-height: 1.85; max-width: 680px; padding-top: 2.8rem; }.content :global(p), .content :global(ul), .content :global(ol) { margin-bottom: 1.5rem; }.content :global(h2) { font-size: 2rem; margin: 2.5rem 0 1rem; }.content :global(h3) { margin: 2rem 0 .8rem; }.content :global(a) { color: var(--moss); text-decoration: underline; text-underline-offset: .18em; }.content :global(code) { background: var(--moss-pale); border-radius: .3rem; color: var(--moss-deep); font-family: "DM Mono", monospace; font-size: .82em; padding: .15rem .35rem; }.content :global(pre) { background: var(--moss-deep); border-radius: var(--radius); color: #f5f2e9; margin-bottom: 1.5rem; overflow-x: auto; padding: 1.2rem; }.content :global(pre code) { background: transparent; color: inherit; padding: 0; } @media (max-width: 560px) { .blog-post { padding-top: 2rem; }.post-header { padding-top: 2rem; }.post-meta { align-items: start; flex-direction: column; } }
+</style>

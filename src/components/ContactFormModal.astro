@@ -1,0 +1,78 @@
+<dialog class="contact-dialog" data-contact-dialog aria-labelledby="contact-form-title">
+  <div class="dialog-panel">
+    <button class="dialog-close" type="button" data-contact-close aria-label="Fechar formulário">×</button>
+    <p class="dialog-kicker" data-i18n-pt="Contato" data-i18n-en="Contact">Contato</p>
+    <h2 id="contact-form-title" data-i18n-pt="Vamos conversar." data-i18n-en="Contact me.">Vamos conversar.</h2>
+    <p class="dialog-intro" data-i18n-pt="Conte um pouco sobre a ideia, o desafio ou a oportunidade." data-i18n-en="Tell me a little about the idea, challenge or opportunity.">Conte um pouco sobre a ideia, o desafio ou a oportunidade.</p>
+
+    <form data-contact-form>
+      <label class="honeypot" aria-hidden="true">
+        Website
+        <input name="website" tabindex="-1" autocomplete="off" />
+      </label>
+      <label>
+        <span class="field-label"><span data-i18n-pt="Nome" data-i18n-en="Name">Nome</span><b>*</b></span>
+        <input name="name" autocomplete="name" required />
+      </label>
+      <label>
+        <span class="field-label"><span>E-mail</span><b>*</b></span>
+        <input name="email" type="email" autocomplete="email" required />
+      </label>
+      <label>
+        <span class="field-label"><span data-i18n-pt="Mensagem" data-i18n-en="Message">Mensagem</span><b>*</b></span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button class="send-button" type="submit" data-i18n-pt="Enviar mensagem" data-i18n-en="Send message">Enviar mensagem</button>
+      <p class="form-status" data-contact-status aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("[data-contact-dialog]")
+  const closeButton = document.querySelector<HTMLButtonElement>("[data-contact-close]")
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]")
+  const status = document.querySelector<HTMLParagraphElement>("[data-contact-status]")
+  const emailAddress = "alexandreapserraa@gmail.com"
+  const contactEndpoint = "https://script.google.com/macros/s/AKfycbyvtBzRiwbAUeePriqHXMQMh3_U1pPqXJ0L8T8Ae9q8TxbCCUdlsZeK8LpAdM_01SOQ/exec"
+
+  document.querySelectorAll<HTMLElement>(`[data-contact-open], a[href^="mailto:${emailAddress}"]`).forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault()
+      dialog?.showModal()
+    })
+  })
+  closeButton?.addEventListener("click", () => dialog?.close())
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close()
+  })
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault()
+    const submitButton = form.querySelector<HTMLButtonElement>("button[type=submit]")
+    const values = new FormData(form)
+    const name = String(values.get("name") || "")
+    const email = String(values.get("email") || "")
+    const message = String(values.get("message") || "")
+    const website = String(values.get("website") || "")
+    if (submitButton) submitButton.disabled = true
+    if (status) status.textContent = "Enviando…"
+
+    try {
+      await fetch(contactEndpoint, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams({ name, email, message, website }),
+      })
+      form.reset()
+      if (status) status.textContent = "Mensagem enviada. Obrigado por entrar em contato."
+    } catch {
+      if (status) status.textContent = "Não foi possível enviar agora. Tente novamente em instantes."
+    } finally {
+      if (submitButton) submitButton.disabled = false
+    }
+  })
+</script>
+
+<style>
+  .contact-dialog { background: transparent; border: 0; inset: 0; margin: 0; max-height: none; max-width: none; padding: 1rem; width: 100%; }.contact-dialog[open] { align-items: center; display: flex; justify-content: center; }.contact-dialog::backdrop { background: rgb(4 9 6 / .75); backdrop-filter: blur(7px); }.dialog-panel { background: #15231a; border: 1px solid #49614d; border-radius: 1.25rem; box-shadow: 0 24px 70px rgb(0 0 0 / .42); color: #edf0e9; max-height: calc(100vh - 2rem); overflow-y: auto; padding: clamp(1.5rem, 5vw, 2.35rem); position: relative; width: min(100%, 33rem); }.dialog-close { align-items: center; background: transparent; border: 1px solid #49614d; border-radius: 50%; color: #dce8d8; cursor: pointer; display: inline-flex; font-family: "DM Sans", sans-serif; font-size: 1.45rem; height: 2rem; justify-content: center; line-height: 1; position: absolute; right: 1.2rem; top: 1.2rem; transition: background .2s, border-color .2s, color .2s; width: 2rem; }.dialog-close:hover { background: #2b4030; border-color: #9bb58e; color: #fffdf8; }.dialog-kicker { color: #e59a77; font-family: "DM Mono", monospace; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }.dialog-panel h2 { color: #fffdf8; font-family: "Fraunces", Georgia, serif; font-size: clamp(2rem, 6vw, 2.7rem); margin: .65rem 0 .75rem; }.dialog-intro { color: #c4cdc1; font-size: .94rem; line-height: 1.6; max-width: 27rem; }.dialog-panel form { display: grid; gap: 1rem; margin-top: 1.8rem; }.dialog-panel label { color: #dce8d8; display: grid; font-size: .78rem; font-weight: 600; gap: .42rem; letter-spacing: .015em; }.honeypot { display: none !important; }.field-label { align-items: center; display: flex; gap: .18rem; }.dialog-panel label b { color: #e59a77; }.dialog-panel input, .dialog-panel textarea { background: #0f1912; border: 1px solid #3f5745; border-radius: .55rem; color: #fffdf8; font: inherit; font-size: .92rem; outline: 0; padding: .75rem .85rem; resize: vertical; transition: border-color .2s, box-shadow .2s; width: 100%; }.dialog-panel input:focus, .dialog-panel textarea:focus { border-color: #9bb58e; box-shadow: 0 0 0 3px rgb(155 181 142 / .16); }.send-button { background: #9bb58e; border: 1px solid #9bb58e; border-radius: 999px; color: #132016; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 700; justify-self: start; margin-top: .25rem; padding: .76rem 1.1rem; transition: background .2s, transform .2s; }.send-button:hover { background: #c2d6b8; transform: translateY(-2px); }.send-button:disabled { cursor: wait; opacity: .7; }.form-status { color: #c4cdc1; font-size: .78rem; line-height: 1.45; min-height: 1.2rem; }.send-button:focus-visible, .dialog-close:focus-visible { outline: 3px solid #e59a77; outline-offset: 3px; }
+</style>

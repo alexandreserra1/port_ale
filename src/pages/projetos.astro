@@ -1,0 +1,14 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import ProjectCard from "@/components/ProjectCard.astro"
+import { projects } from "@/data/projects"
+---
+
+<MainLayout title="Projetos">
+  <section class="page-hero container"><p class="eyebrow" data-i18n="projects.eyebrow">Projetos selecionados</p><h1 data-i18n="projects.title">Ideias que saíram do papel e ganharam <em>sistema.</em></h1><p data-i18n="projects.copy">Trabalhos selecionados na interseção entre sistemas distribuídos, plataformas de dados e IA aplicada.</p></section>
+  <section class="container section section--tight"><div class="grid grid-2">{projects.map(p => <ProjectCard {...p} />)}</div></section>
+</MainLayout>
+
+<style>
+  .page-hero { padding: clamp(4.5rem, 10vw, 7rem) 0 2rem; }.page-hero h1 { margin: 1.2rem 0 1.3rem; max-width: 64rem; }.page-hero h1 em { color: var(--moss); font-style: normal; }.page-hero > p:last-child { color: var(--ink-soft); font-size: 1.08rem; max-width: 42rem; }
+</style>

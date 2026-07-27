@@ -1,0 +1,15 @@
+---
+import type { Experience } from "@/data/experiences"
+
+export interface Props extends Experience { index?: number }
+const { company, role, roleEn, period, periodEn, description, descriptionEn, technologies, index = 0 } = Astro.props
+---
+
+<article class:list={["timeline-item", { "timeline-item--right": index % 2 === 1 }]}>
+  <span class="timeline-marker" aria-hidden="true"></span>
+  <div class="experience-card"><h2>{company}</h2><div class="role-header"><div><h3 data-i18n-pt={role} data-i18n-en={roleEn}>{role}</h3><time data-i18n-pt={period} data-i18n-en={periodEn}>{period}</time></div></div><p class="desc" data-i18n-pt={description} data-i18n-en={descriptionEn}>{description}</p><div class="tags">{technologies.map(tech => <span class="tag">{tech}</span>)}</div></div>
+</article>
+
+<style>
+  .timeline-item { padding-right: 2.4rem; position: relative; width: calc(50% - 2rem); }.timeline-item--right { margin-left: calc(50% + 2rem); padding-left: 2.4rem; padding-right: 0; }.timeline-marker { background: var(--paper); border: 2px solid var(--clay); border-radius: 50%; height: .78rem; position: absolute; right: -2.39rem; top: 1.75rem; width: .78rem; z-index: 1; }.timeline-item--right .timeline-marker { left: -2.39rem; right: auto; }.experience-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 2px 0 rgb(65 83 70 / 3%); padding: 1.35rem; transition: border-color .2s, box-shadow .2s, transform .2s; }.experience-card:hover { border-color: var(--moss); box-shadow: var(--shadow); transform: translateY(-3px); }.experience-card > h2 { font-family: "Fraunces", Georgia, serif; font-size: 1.55rem; margin-bottom: 1.15rem; }.role-header h3 { color: var(--moss); font-size: 1rem; letter-spacing: -.02em; }.role-header time { color: var(--muted); display: block; font-family: "DM Mono", monospace; font-size: .67rem; margin-top: .25rem; }.desc { color: var(--ink-soft); font-size: .87rem; line-height: 1.65; margin: .85rem 0; }.tags { display: flex; flex-wrap: wrap; gap: .35rem; } @media (max-width: 700px) { .timeline-item, .timeline-item--right { margin-left: 1.8rem; padding: 0 0 0 1.8rem; width: calc(100% - 1.8rem); }.timeline-marker, .timeline-item--right .timeline-marker { left: -2.18rem; right: auto; top: 1.5rem; } }
+</style>

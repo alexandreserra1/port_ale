@@ -1,0 +1,18 @@
+<button class="theme-toggle" type="button" aria-label="Alternar tema" title="Alternar tema">
+  <span aria-hidden="true">☼</span><span aria-hidden="true">☾</span>
+</button>
+
+<script>
+  const themeButton = document.querySelector<HTMLButtonElement>(".theme-toggle")
+  const setTheme = (theme: string) => {
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem("portfolio-theme", theme)
+    themeButton?.setAttribute("aria-label", theme === "dark" ? "Usar tema claro" : "Usar tema escuro")
+  }
+  setTheme(localStorage.getItem("portfolio-theme") || "dark")
+  themeButton?.addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"))
+</script>
+
+<style>
+  .theme-toggle { align-items: center; background: transparent; border: 1px solid var(--line); border-radius: 99px; color: var(--moss-deep); cursor: pointer; display: inline-flex; font-size: .82rem; gap: .35rem; height: 1.8rem; justify-content: center; padding: 0 .48rem; }.theme-toggle:hover { border-color: var(--moss); }.theme-toggle span:last-child { color: var(--clay); }
+</style>

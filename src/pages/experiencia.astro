@@ -1,0 +1,18 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+import ExperienceCard from "@/components/ExperienceCard.astro"
+import { experiences } from "@/data/experiences"
+import { education } from "@/data/education"
+
+---
+
+<MainLayout title="Experiência">
+  <section class="page-hero container"><p class="eyebrow" data-i18n="experience.eyebrow">Caminho profissional</p><h1 data-i18n="experience.title">Experiência que conecta produto, dados e <em>escala.</em></h1><p data-i18n="experience.copy">Uma trajetória movida por curiosidade, contexto e engenharia aplicada a problemas importantes.</p></section>
+  <section class="container section section--tight"><div class="timeline">{experiences.map((experience, index) => <ExperienceCard {...experience} index={index} />)}</div></section>
+  <section class="education-section"><div class="container"><div class="education-heading"><p class="eyebrow" data-i18n-pt="Formação acadêmica" data-i18n-en="Education">Formação acadêmica</p><p data-i18n-pt="A base que sustenta a curiosidade técnica." data-i18n-en="The foundation behind my technical curiosity.">A base que sustenta a curiosidade técnica.</p></div><div class="education-grid">{education.map((item, index) => <article class="education-card"><span>0{index + 1}</span><h2>{item.institution}</h2><p data-i18n-pt={item.degree} data-i18n-en={item.degreeEn}>{item.degree}</p><time data-i18n-pt={item.period} data-i18n-en={item.periodEn}>{item.period}</time></article>)}</div></div></section>
+</MainLayout>
+
+<style>
+  .page-hero { padding: clamp(4.5rem, 10vw, 7rem) 0 2rem; }.page-hero h1 { margin: 1.2rem 0 1.3rem; max-width: 63rem; }.page-hero h1 em { color: var(--moss); font-style: normal; }.page-hero > p:last-child { color: var(--ink-soft); font-size: 1.08rem; max-width: 38rem; }.timeline { display: flex; flex-direction: column; gap: 2rem; padding: 1rem 0; position: relative; }.timeline::before { background: linear-gradient(var(--clay), var(--line) 85%, transparent); bottom: 0; content: ""; left: 50%; position: absolute; top: 0; width: 1px; }
+  .education-section { background: var(--linen); padding: 4rem 0; }.education-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 2rem; }.education-heading > p:last-child { color: var(--muted); font-size: .9rem; }.education-grid { display: grid; grid-template-columns: repeat(2, 1fr); }.education-card { border-top: 1px solid var(--line); padding: 1.3rem 1.5rem 1.3rem 0; }.education-card + .education-card { border-left: 1px solid var(--line); padding-left: 1.5rem; }.education-card > span { color: var(--clay); font-family: "DM Mono", monospace; font-size: .7rem; }.education-card h2 { font-family: "Fraunces", Georgia, serif; font-size: 1.45rem; line-height: 1.15; margin: 1.4rem 0 .45rem; max-width: 23rem; }.education-card p { color: var(--ink-soft); font-size: .9rem; }.education-card time { color: var(--muted); display: block; font-family: "DM Mono", monospace; font-size: .67rem; margin-top: 1rem; text-transform: uppercase; } @media (max-width: 700px) { .timeline::before { left: 1.8rem; }.education-section { padding: 3rem 0; }.education-heading { align-items: start; flex-direction: column; gap: .8rem; }.education-grid { grid-template-columns: 1fr; }.education-card + .education-card { border-left: 0; padding-left: 0; } }
+</style>

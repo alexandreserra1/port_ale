@@ -1,0 +1,11 @@
+---
+export interface Props { title: string; description: string; date: Date; tags: string[]; slug: string }
+const { title, description, date, tags, slug } = Astro.props
+const formatted = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" }).format(date)
+---
+
+<article class="blog-card"><a href={"/blog/" + slug}><time>{formatted}</time><div class="article-copy"><h2>{title}</h2><p>{description}</p><div class="tags">{tags.map(tag => <span class="tag">{tag}</span>)}</div></div><span class="arrow" aria-hidden="true">↗</span></a></article>
+
+<style>
+  .blog-card a { align-items: start; display: grid; gap: 2rem; grid-template-columns: 9rem 1fr auto; padding: 2rem 0; transition: padding .2s; }.blog-card a:hover { padding-left: .5rem; }.blog-card + .blog-card { border-top: 1px solid var(--line); }.blog-card time { color: var(--clay-deep); font-family: "DM Mono", monospace; font-size: .7rem; padding-top: .4rem; text-transform: uppercase; }.article-copy h2 { font-size: clamp(1.55rem, 3vw, 2.25rem); }.article-copy p { color: var(--muted); font-size: .93rem; line-height: 1.6; margin: .7rem 0 1rem; max-width: 38rem; }.tags { display: flex; flex-wrap: wrap; gap: .4rem; }.arrow { color: var(--clay); font-size: 1.45rem; } @media (max-width: 600px) { .blog-card a { gap: .8rem; grid-template-columns: 1fr auto; }.blog-card time { grid-column: 1 / -1; }.arrow { grid-column: 2; grid-row: 2; } }
+</style>

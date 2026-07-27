@@ -1,0 +1,53 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro"
+const base = import.meta.env.BASE_URL
+---
+
+<MainLayout title="Sobre">
+  <section class="about container">
+    <aside class="about-profile">
+      <img src={`${base}images/alexandre-serra-hero.png`} alt="Retrato ilustrado de Alexandre Serra" />
+      <div>
+        <p class="eyebrow" data-i18n-pt="Sobre" data-i18n-en="About">Sobre</p>
+        <h1>Alexandre Serra</h1>
+        <p class="role" data-i18n-pt="Software Engineer" data-i18n-en="Software Engineer">Software Engineer</p>
+        <p class="location" data-i18n-pt="Florianópolis, Brasil" data-i18n-en="Florianópolis, Brazil">Florianópolis, Brasil</p>
+      </div>
+      <div class="profile-links" aria-label="Links profissionais">
+        <a href="https://github.com/alexandreserra1" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+        <a href="https://www.linkedin.com/in/alexandreapserra/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+        <a href="mailto:alexandreapserraa@gmail.com">E-mail <span>↗</span></a>
+      </div>
+    </aside>
+
+    <div class="about-copy">
+      <p class="hello" data-i18n-pt="Olá — que bom ter você por aqui." data-i18n-en="Hey — glad you’re here.">Olá — que bom ter você por aqui.</p>
+      <p data-i18n-pt="Sou Alexandre Serra, software engineer formado em Engenharia Informática e Computação pela Faculdade de Engenharia da Universidade do Porto (FEUP). Trabalho onde sistemas, dados e operações se encontram — transformando informação dispersa em plataformas que ajudam pessoas a decidir e negócios a avançar." data-i18n-en="I’m Alexandre Serra, a software engineer with a degree in Informatics and Computing Engineering from the Faculty of Engineering of the University of Porto (FEUP). I work where systems, data and operations meet — turning scattered information into platforms that help people make decisions and businesses move forward.">Sou Alexandre Serra, software engineer formado em Engenharia Informática e Computação pela Faculdade de Engenharia da Universidade do Porto (FEUP). Trabalho onde sistemas, dados e operações se encontram — transformando informação dispersa em plataformas que ajudam pessoas a decidir e negócios a avançar.</p>
+      <p data-i18n-pt="O que me move não é apenas chegar a uma resposta: são os desafios que obrigam a fazer boas perguntas, aprender rápido e encontrar simplicidade onde antes havia ruído. Acredito que a parte mais recompensadora da engenharia está justamente nesse percurso." data-i18n-en="What drives me is not just reaching an answer: it is the challenges that demand better questions, quick learning and simplicity where there was once noise. I believe the most rewarding part of engineering lives in that journey.">O que me move não é apenas chegar a uma resposta: são os desafios que obrigam a fazer boas perguntas, aprender rápido e encontrar simplicidade onde antes havia ruído. Acredito que a parte mais recompensadora da engenharia está justamente nesse percurso.</p>
+
+      <section>
+        <h2 data-i18n-pt="Tecnicamente falando…" data-i18n-en="Technically speaking…">Tecnicamente falando…</h2>
+        <p data-i18n-pt="Meu trabalho passa principalmente por Python, Go e Rust, com atenção especial a plataformas de dados, serviços distribuídos e IA aplicada. Tenho experiência com PostgreSQL, ClickHouse, DuckDB, Airflow, Kafka, Docker e AWS — escolhendo ferramentas pelo problema, não pelo entusiasmo do momento. Gosto de discutir modelagem de dados, observabilidade, desempenho e as fronteiras que tornam sistemas críticos mais fáceis de evoluir." data-i18n-en="My work is centred on Python, Go and Rust, with particular attention to data platforms, distributed services and applied AI. I have experience with PostgreSQL, ClickHouse, DuckDB, Airflow, Kafka, Docker and AWS — choosing tools for the problem, not for the excitement of the moment. I enjoy discussing data modelling, observability, performance and the boundaries that make critical systems easier to evolve.">Meu trabalho passa principalmente por Python, Go e Rust, com atenção especial a plataformas de dados, serviços distribuídos e IA aplicada. Tenho experiência com PostgreSQL, ClickHouse, DuckDB, Airflow, Kafka, Docker e AWS — escolhendo ferramentas pelo problema, não pelo entusiasmo do momento. Gosto de discutir modelagem de dados, observabilidade, desempenho e as fronteiras que tornam sistemas críticos mais fáceis de evoluir.</p>
+      </section>
+
+      <section>
+        <h2 data-i18n-pt="Fora da tecnologia…" data-i18n-en="Outside technology…">Fora da tecnologia…</h2>
+        <p data-i18n-pt="O esporte sempre fez parte da minha vida: fui atleta desde pequeno e hoje treino CrossFit e HYROX, enquanto me preparo para uma maratona. É onde encontro uma versão muito concreta daquilo que valorizo no trabalho — consistência, curiosidade sobre o próprio limite e a vontade de melhorar um pouco a cada dia." data-i18n-en="Sport has always been part of my life: I have been an athlete since childhood and today I train CrossFit and HYROX while preparing for a marathon. It is where I find a very concrete version of what I value at work — consistency, curiosity about one’s limits and the desire to improve a little every day.">O esporte sempre fez parte da minha vida: fui atleta desde pequeno e hoje treino CrossFit e HYROX, enquanto me preparo para uma maratona. É onde encontro uma versão muito concreta daquilo que valorizo no trabalho — consistência, curiosidade sobre o próprio limite e a vontade de melhorar um pouco a cada dia.</p>
+      </section>
+
+      <section>
+        <h2 data-i18n-pt="E por aqui?" data-i18n-en="And around here?">E por aqui?</h2>
+        <p data-i18n-pt="No blog, escrevo sobre tecnologias e os desafios que aparecem ao construir sistemas de verdade: decisões de arquitetura, dados, desempenho, ferramentas e aprendizados que valem ser compartilhados. A ideia é registrar o que estou explorando de forma honesta e útil para quem também gosta de entender como as coisas funcionam." data-i18n-en="On the blog, I write about technologies and the challenges that come with building real systems: architecture decisions, data, performance, tools and lessons worth sharing. The idea is to document what I’m exploring in an honest and useful way for people who also enjoy understanding how things work.">No blog, escrevo sobre tecnologias e os desafios que aparecem ao construir sistemas de verdade: decisões de arquitetura, dados, desempenho, ferramentas e aprendizados que valem ser compartilhados. A ideia é registrar o que estou explorando de forma honesta e útil para quem também gosta de entender como as coisas funcionam.</p>
+      </section>
+
+      <div class="about-cta">
+        <p data-i18n-pt="Se alguma ideia daqui abriu uma boa conversa, me escreva. Gosto de falar sobre tecnologia, carreira, esporte e projetos que tenham propósito." data-i18n-en="If something here starts a good conversation, send me a message. I enjoy talking about technology, careers, sport and projects with purpose.">Se alguma ideia daqui abriu uma boa conversa, me escreva. Gosto de falar sobre tecnologia, carreira, esporte e projetos que tenham propósito.</p>
+        <button type="button" class="btn" data-contact-open data-i18n-pt="Vamos conversar ↗" data-i18n-en="Let’s talk ↗">Vamos conversar ↗</button>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .about { display: grid; gap: clamp(3.5rem, 9vw, 8rem); grid-template-columns: minmax(13rem, 18rem) minmax(0, 42rem); justify-content: center; padding: clamp(4rem, 9vw, 7rem) 0; }.about-profile { align-self: start; position: sticky; top: 7rem; }.about-profile img { aspect-ratio: 1; border: 1px solid var(--line); border-radius: 1rem; object-fit: cover; width: 10rem; }.about-profile .eyebrow { margin-top: 1.7rem; }.about-profile h1 { font-size: 1.8rem; margin: .85rem 0 .35rem; }.role { color: var(--moss); font-size: .9rem; font-weight: 700; }.location { color: var(--muted); font-size: .82rem; margin-top: .1rem; }.profile-links { display: grid; gap: .45rem; margin-top: 1.5rem; }.profile-links a { color: var(--ink-soft); font-family: "DM Mono", monospace; font-size: .72rem; width: fit-content; }.profile-links a span { color: var(--clay); }.profile-links a:hover { color: var(--moss); }.about-copy { color: var(--ink-soft); font-size: 1.02rem; line-height: 1.82; }.about-copy > p { margin-bottom: 1.15rem; }.about-copy .hello { color: var(--ink); font-family: "Fraunces", Georgia, serif; font-size: clamp(2rem, 5vw, 3.45rem); line-height: 1.08; margin-bottom: 1.8rem; }.about-copy section { border-top: 1px solid var(--line); margin-top: 2.6rem; padding-top: 2.5rem; }.about-copy h2 { color: var(--moss); font-family: "Fraunces", Georgia, serif; font-size: 1.65rem; margin-bottom: .9rem; }.about-cta { background: var(--moss-pale); border-radius: var(--radius); color: var(--ink); margin-top: 3.5rem; padding: 1.5rem; }.about-cta p { line-height: 1.65; max-width: 33rem; }.about-cta .btn { margin-top: 1.1rem; } @media (max-width: 760px) { .about { display: block; padding: 3.5rem 0; }.about-profile { display: grid; gap: 1.2rem; grid-template-columns: 7rem 1fr; position: static; }.about-profile img { grid-row: span 2; width: 7rem; }.about-profile .eyebrow { margin-top: 0; }.profile-links { align-content: end; display: flex; flex-wrap: wrap; gap: .45rem .9rem; margin-top: 0; }.about-copy { margin-top: 2.5rem; }.about-copy section { margin-top: 2.3rem; padding-top: 2rem; } } @media (max-width: 420px) { .about { padding: 3rem 0; }.about-profile { gap: 1rem; grid-template-columns: 5.8rem 1fr; }.about-profile img { width: 5.8rem; }.about-profile h1 { font-size: 1.45rem; }.about-copy { font-size: .98rem; }.about-cta { margin-top: 2.5rem; padding: 1.2rem; }.about-cta .btn { width: 100%; } }
+</style>

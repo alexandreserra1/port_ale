@@ -1,0 +1,18 @@
+---
+export interface Props { title: string; titleEn: string; description: string; descriptionEn: string; technologies: string[]; image?: string; githubUrl?: string; demoUrl?: string }
+const { title, titleEn, description, descriptionEn, technologies, image, githubUrl, demoUrl } = Astro.props
+const monogram = title.split(" ").map(word => word[0]).join("").slice(0, 2).toUpperCase()
+const base = import.meta.env.BASE_URL
+const imageSrc = image?.startsWith("/") ? `${base}${image.slice(1)}` : image
+---
+
+<article class="card project-card">
+  <div class="project-visual" class:list={{ "has-image": Boolean(image) }}>{imageSrc ? <img src={imageSrc} alt={title} /> : <><span class="project-number">/ 0{technologies.length}</span><strong>{monogram}</strong><i></i></>}</div>
+  <div class="project-body"><div><h3 data-i18n-pt={title} data-i18n-en={titleEn}>{title}</h3><p data-i18n-pt={description} data-i18n-en={descriptionEn}>{description}</p></div><div class="tags">{technologies.map(tech => <span class="tag">{tech}</span>)}</div>{(githubUrl || demoUrl) && <div class="links">{githubUrl && <a href={githubUrl} target="_blank" rel="noreferrer" class="project-link" data-i18n="project.code">Código <span aria-hidden="true">↗</span></a>}{demoUrl && <a href={demoUrl} target="_blank" rel="noreferrer" class="project-link" data-i18n="project.view">Ver projeto <span aria-hidden="true">↗</span></a>}</div>}</div>
+</article>
+
+<style>
+  .project-card { display: flex; flex-direction: column; min-height: 100%; overflow: hidden; transition: box-shadow .25s, transform .25s; }.project-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+  .project-visual { align-items: center; background: var(--moss-deep); display: flex; height: 12.5rem; justify-content: center; overflow: hidden; position: relative; }.project-card:nth-child(even) .project-visual { background: #9f523e; }.project-visual.has-image { background: var(--moss-pale); }.project-visual img { height: 100%; object-fit: cover; width: 100%; }.project-visual strong { color: #eff0df; font-family: "Fraunces", Georgia, serif; font-size: 4rem; font-weight: 600; letter-spacing: -.08em; position: relative; z-index: 1; }.project-visual i { border: 1px solid rgb(255 253 248 / .35); border-radius: 50%; height: 12rem; position: absolute; transform: rotate(-35deg); width: 8rem; }.project-number { color: #f2dfd4; font-family: "DM Mono", monospace; font-size: .68rem; left: 1rem; position: absolute; top: 1rem; }
+  .project-body { display: flex; flex: 1; flex-direction: column; gap: 1.25rem; padding: 1.4rem; }.project-body p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-top: .65rem; }.tags { display: flex; flex-wrap: wrap; gap: .4rem; }.links { display: flex; gap: 1rem; margin-top: auto; }.project-link { color: var(--moss); font-size: .82rem; font-weight: 700; }.project-link:hover { color: var(--clay-deep); }.project-link span { color: var(--clay); }
+</style>

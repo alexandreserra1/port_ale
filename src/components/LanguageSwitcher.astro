@@ -1,0 +1,49 @@
+<label class="language-switcher" aria-label="Selecionar idioma">
+  <span class="sr-only">Idioma</span>
+  <select id="language-switcher">
+    <option value="pt-BR">PT-BR</option>
+    <option value="en">English</option>
+  </select>
+</label>
+
+<script>
+  const translations: Record<string, Record<string, string>> = {
+    en: {
+      "nav.about": "About", "nav.experience": "Experience", "nav.projects": "Projects", "nav.notes": "Blog", "nav.contact": "Let's talk",
+      "footer.tagline": "Software, data and systems built to last.", "footer.rights": "© 2026 Alexandre Serra", "footer.github": "GitHub ↗", "footer.linkedin": "LinkedIn ↗",
+      "home.eyebrow": "Data & Distributed Systems · Go, Python, Rust, SQL, RAG/GenAI", "home.title": "Distributed systems and data platforms built for <em>real-world complexity.</em>", "home.intro": "Software engineer with a degree in Informatics and Computing Engineering from the Faculty of Engineering of the University of Porto (FEUP). I work across backend, data and applied AI, designing distributed systems for operations where performance, context and reliability are non-negotiable.", "home.projects": "Explore projects <span aria-hidden=\"true\">↗</span>", "home.contact": "Get in touch", "home.capabilities": "Core capabilities", "home.principles": "How I work", "home.principles-title": "Engineering with context.", "home.principles-copy": "From discovery to deployment, I balance technical decisions, business impact and the experience of the people maintaining the product.", "home.work": "Selected work", "home.work-title": "Built with intent.", "home.all-projects": "View all projects <span aria-hidden=\"true\">→</span>", "home.cta": "Next conversation", "home.cta-title": "Have an interesting problem<br />to solve?", "home.cta-button": "Let's talk <span aria-hidden=\"true\">↗</span>",
+      "about.eyebrow": "About me", "about.title": "Technology works best when it makes more things <em>possible.</em>", "about.label": "My path", "about.lead": "I build backend systems and data platforms that hold up in the real world: scale, integrations, critical operations and continuous change.", "about.p1": "My work spans financial services, industrial operations and agribusiness. At Stone, I helped evolve payment systems from a Django monolith toward Go microservices, with clearer domain boundaries and stronger observability.", "about.p2": "At Braskem and Agroconsult, I brought the same systems mindset to industrial telemetry and analytical data: faster decisions, reliable pipelines and practical architecture. Alongside that, I build StriderEdge OS — a local-first platform for sports analysis and injury prevention.", "about.skills": "Tools & interests", "about.skills-title": "From service to system.", "about.skills-copy": "A versatile foundation for choosing tools based on the problem — never the other way around.",
+      "experience.eyebrow": "Professional path", "experience.title": "Experience connecting product, data and <em>scale.</em>", "experience.copy": "A career guided by curiosity, context and engineering applied to important problems.",
+      "projects.eyebrow": "Selected projects", "projects.title": "Ideas that left the drawing board and became <em>systems.</em>", "projects.copy": "Selected work at the intersection of distributed systems, data platforms and applied AI.",
+      "notes.eyebrow": "Blog", "notes.title": "Ideas in progress, systems in <em>evolution.</em>", "notes.copy": "Writing on software engineering, data, architecture and the tools that make hard problems a little simpler.", "notes.publications": "posts", "notes.publication": "post",
+      "contact.eyebrow": "Contact", "contact.title": "Let's build something that <em>matters.</em>", "contact.copy": "I’m always open to conversations about product, systems, data and opportunities to create meaningful impact.", "contact.linkedin": "Connect to follow my professional journey.", "contact.github": "Explore projects, experiments and the code behind the ideas.",
+      "project.code": "Code", "project.view": "View project", "project.case": "Case study", "avatar.label": "An engineer's work is a craft.",
+    },
+    "pt-BR": {}
+  }
+  const languageSelect = document.querySelector<HTMLSelectElement>("#language-switcher")
+  const portugueseValues = new Map<HTMLElement, string>()
+  document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((element) => portugueseValues.set(element, element.innerHTML))
+  const applyLanguage = (language: string) => {
+    const locale = language === "en" ? "en" : "pt-BR"
+    document.documentElement.lang = locale
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((element) => {
+      const key = element.dataset.i18n
+      const text = key ? translations[locale][key] : undefined
+      if (locale === "pt-BR") element.innerHTML = portugueseValues.get(element) || element.innerHTML
+      else if (text) element.innerHTML = text
+    })
+    document.querySelectorAll<HTMLElement>("[data-i18n-pt][data-i18n-en]").forEach((element) => {
+      element.innerHTML = locale === "en" ? element.dataset.i18nEn || "" : element.dataset.i18nPt || ""
+    })
+    if (languageSelect) languageSelect.value = locale
+    localStorage.setItem("portfolio-language", locale)
+  }
+  const savedLanguage = localStorage.getItem("portfolio-language") || "pt-BR"
+  applyLanguage(savedLanguage)
+  languageSelect?.addEventListener("change", () => applyLanguage(languageSelect.value))
+</script>
+
+<style>
+  .language-switcher { position: relative; }.language-switcher::after { color: var(--clay); content: "⌄"; font-size: .75rem; pointer-events: none; position: absolute; right: .55rem; top: .23rem; }.language-switcher select { appearance: none; background: transparent; border: 1px solid var(--line); border-radius: 99px; color: var(--moss-deep); cursor: pointer; font-family: "DM Mono", monospace; font-size: .66rem; font-weight: 500; padding: .35rem 1.45rem .35rem .65rem; }.language-switcher select:focus-visible { outline: 3px solid var(--clay); outline-offset: 2px; }.sr-only { clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
+</style>

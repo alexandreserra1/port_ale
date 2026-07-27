@@ -1,0 +1,32 @@
+---
+import "@/styles/global.css"
+import Header from "@/components/Header.astro"
+import Footer from "@/components/Footer.astro"
+import ContactFormModal from "@/components/ContactFormModal.astro"
+
+export interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+const base = import.meta.env.BASE_URL
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description || "Blog técnico de Alexandre Serra"} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title} — Alexandre Serra</title>
+    <script is:inline>document.documentElement.dataset.theme = localStorage.getItem("portfolio-theme") || "dark"</script>
+  </head>
+  <body>
+    <Header />
+    <main><slot /></main>
+    <Footer />
+    <ContactFormModal />
+  </body>
+</html>
